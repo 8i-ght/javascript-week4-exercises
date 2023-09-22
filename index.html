@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    
+    <script>
+
+        // exercise 1
+        console.groupCollapsed('Exercise 1');
+        
+        // global function
+        function globalFun() {
+            console.log(this);
+        }
+
+        // object function
+        const objThis = {
+            firstName: 'Kyle',
+            lastName: 'Ford',
+            fullName: function() {
+                console.log(this);
+            }
+        }
+
+        // object arrow function
+        const objTwo = {
+            arrFun: () => {
+                console.log(this);
+            }
+        }
+
+        globalFun();
+        objThis.fullName();
+        objTwo.arrFun();
+
+        // arrow functions inherit the nearest functions 'this' scope because they don't have their own 'this' scope
+        console.groupEnd();
+
+        // exercise 2 and 3
+        console.groupCollapsed('Exercise 2 and 3');
+
+        class Person {
+            constructor(name, age) {
+            this.name = name;
+            this.age = age; 
+        }
+            greet(phrase) {
+                console.log(`${this.name} says: ${phrase}`);
+            }
+
+            // exercise 4 method
+            static(text) {
+                console.log(`${text}`);
+            }
+
+            // exercise 5 getters and setters
+            get getterAge() {
+                return `${this.age}`
+            }
+
+            set newAge(newAge2) {
+                if (this.age > 0) {
+                    console.log(newAge2);
+                } else {
+                    console.log('Age cannot be negative');
+                }
+            }
+
+        }
+
+        const Kyle = new Person("Kyle", 25);
+        Kyle.greet('Hi nice to meet you');
+
+        const Bill = new Person("Bill", 45);
+        Bill.greet("It's nice to meet you too");
+
+        console.log(Bill);
+        console.log(Kyle);
+
+        console.groupEnd();
+
+        // exercise 4
+        console.groupCollapsed('Exercise 4');
+
+        const classGreeting = new Person(NaN);
+        classGreeting.static("This is a Person class");
+
+        // Won't let me access the method from the same class which it was declared
+        console.groupEnd();
+
+        // exercise 5
+        console.groupCollapsed('Exercise 5');
+
+        const newAgeLog = new Person();
+        newAgeLog.newAge = -1;
+        
+        console.groupEnd();
+
+        // exercise 7 
+        console.groupCollapsed('Exercise 7');
+
+        class Student {
+            constructor (name) {
+                this.name = name;
+                this.grades = [];
+            }
+
+            addGrade(grade) {
+                this.grades.push(grade);
+            }
+
+            computeAverage() {
+                if (this.grades.length === 0) {
+                    return 0;
+                } else {
+                    const total = this.grades.reduce((sum, grade) => sum + grade, 0);
+                    return total / this.grades.length;
+                }
+            }
+        }
+
+        const studentTotal = new Student("Kyle");
+
+        studentTotal.addGrade(87);
+        studentTotal.addGrade(95);
+        studentTotal.addGrade(67);
+
+        const averageGrade = studentTotal.computeAverage();
+        console.log(`${studentTotal.name}'s average grade is: ${averageGrade}`);
+        // The arrow function is unable to define the this keyword compared to the regular function which already defines its own value
+        console.groupEnd();
+
+    </script>
+</body>
+</html>
